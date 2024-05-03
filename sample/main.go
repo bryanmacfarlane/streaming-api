@@ -5,8 +5,9 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"go-conc/concgroup"
-	"go-conc/data"
+	"data"
+
+	"concgroup"
 )
 
 type Response struct {

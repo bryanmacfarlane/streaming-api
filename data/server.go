@@ -58,5 +58,10 @@ func GetBaz(id int) (*Baz, error) {
 		return nil, errors.New("bad request")
 	}
 
+	err := randSleep(DEF_RAND_SLEEP)
+	if err != nil {
+		return nil, err
+	}
+
 	return &Baz{Id: id, Address: fmt.Sprintf("baz address for %v", id)}, nil
 }
