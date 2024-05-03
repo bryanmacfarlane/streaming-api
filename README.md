@@ -2,8 +2,9 @@
 
 Musings of streaming json over chunked encoding
 
+from server directory
 ```bash
-go build && ./serve
+go build && ./server
 ```
 
 in another terminal:
