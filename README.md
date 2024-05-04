@@ -164,7 +164,7 @@ The single request consolidates authentication.
 
 For authorization, the initial SSR page (or request) can produce a signed JWT token with the resources and actors already authorized.  This should be an opaque and signed token to the client with a short (1 min?) TTL.
 
-The subsequent AJAX request should supply the opaque token.  Ideally, a majority of the authorization checks should be short circuited without incurrent server work.  The token is signed, therefore trusted.  The authz checks can reply yes before ever calling to the authz system.
+The subsequent AJAX request should supply the opaque token.  Ideally, a majority of the authorization checks should be short circuited without incurreing server work.  The token is signed, therefore trusted without calling the authz system. 
 
 ## Run
 
