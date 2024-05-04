@@ -2,13 +2,13 @@
 
 ## Problem Statement
 
-In a modern rich web application, a web client makes async requests to the server to dynamically render views.  It can either be done as an initial SSR page (SEO) followed by asynchronous calls to populate views, or it could be a completed client side rendered page.  They both need to solve similar problems.
+In a modern rich web application, a web client makes async requests to the server to dynamically render views.  It can either be done as an initial SSR page (SEO) followed by asynchronous calls to populate views, or it could be a completely client side rendered page.  They both need to solve similar problems.
 
 The ideal case is your server calls are fast, lightweight and latency is low.  In that case, you can lean on AJAX browser requests to concurrently populate the page.  Google search type ahead is the perfect example where the server is fast enough to dynamically respond as you type.
 
 However, what if that isn't the case?  What if latency isn't ideal for some regions?  What if the server has a non-trivial overhead per call?  (auth, per-request process forking, etc etc).  Now not only is your app not responsive, but you're incurring much more server load by making many requests.
 
-The most common solution is some form of batching requests.  That's a valid solution.  However, if you batch too much data, now the client has to wait for all of the work to complete and all of the data to return.  Depending on how slow the server is, that can lead to a bad experience.  This also limits the responsive of the page to the slowest possible piece of server work in that batch.
+The most common solution is some form of batching requests.  That's a valid solution.  However, if you batch too much data, now the client has to wait for all of the work to complete and all of the data to return.  Depending on how slow the server is, that can lead to a bad experience.  This also limits the responsiveness of the page to the slowest possible chunk of server work in that batch.
 
 ## One call, Consolidate Overhead, Concurrently Work, Stream Results
 
