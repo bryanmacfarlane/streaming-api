@@ -2,9 +2,9 @@
 
 ## Problem Statement
 
-In a modern rich web application, a web client makes async requests to the server to dynamically render views.  It can either be done as an initial SSR page (SEO) followed by asynchronous calls to populate views, or it could be a completed client side rendered page.  They both need so solve similar problems.
+In a modern rich web application, a web client makes async requests to the server to dynamically render views.  It can either be done as an initial SSR page (SEO) followed by asynchronous calls to populate views, or it could be a completed client side rendered page.  They both need to solve similar problems.
 
-The ideal case is you're server calls are fast, lightweight and latency is low.  In that case, you can lean on AJAX browser requests to concurrently populate the page.  Google search type ahead is the perfect example where the server is fast enough to dynamically respond as you type.
+The ideal case is your server calls are fast, lightweight and latency is low.  In that case, you can lean on AJAX browser requests to concurrently populate the page.  Google search type ahead is the perfect example where the server is fast enough to dynamically respond as you type.
 
 However, what if that isn't the case?  What if latency isn't ideal for some regions?  What if the server has a non-trivial overhead per call?  (auth, per-request process forking, etc etc).  Now not only is your app not responsive, but you're incurring much more server load.
 
