@@ -22,6 +22,8 @@ We also need a concurrent server solution which writes the streaming chunks.
 
 So for the "foobars" page, let's get all the data async.  Notice the overhead of the request and then the three pieces of data being made available to the client as the server has them.  Also notice that the third "chunk" of data relies on the first chunk (a foo has a baz id).
 
+Foo and bar can also come out of order because they don't depend each other.  But baz will always come after Foo.
+
 ```bash
 curl --trace - "http://localhost:3000/foobars"
 == Info:   Trying [::1]:3000...
