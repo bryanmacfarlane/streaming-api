@@ -18,7 +18,7 @@ Http chunked encoding is an http 1.1 feature.  Ebay leveraged and [even created 
 
 We also need a concurrent server solution which writes the streaming chunks.
 
-> Note: This is not a RESTful api.  This is first party routes per page view
+> Note: This is not a RESTful api.  This is a first party route per page view
 
 So for the "foobars" page, let's get all the data async.  Notice the overhead of the request and then the three pieces of data being made available to the client as the server has them.  Also notice that the third "chunk" of data relies on the first chunk (a foo has a baz id).
 
