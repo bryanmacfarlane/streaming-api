@@ -33,7 +33,7 @@ func send(identifier string, data interface{}, err error) {
 func main() {
 	limit := 3
 	bazId := 0
-	cg, _ := concgroup.WithOptions(context.Background(), limit, func(identifier string, data interface{}, err error) {
+	cg := concgroup.WithOptions(context.Background(), limit, func(identifier string, data interface{}, err error) {
 		send(identifier, data, err)
 	})
 

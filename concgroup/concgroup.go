@@ -8,10 +8,10 @@ import (
 // similar to ErrGroup: https://cs.opensource.google/go/x/sync/+/refs/tags/v0.7.0:errgroup/errgroup.go
 type token struct{}
 
-type ConcGroup struct {
+type ConcGroup[T any] struct {
 	wg   sync.WaitGroup
 	sem  chan token
-	comp func(identifier string, data interface{}, err error)
+	comp func(identifier string, data T, err error)
 	mu   sync.Mutex
 }
 
@@ -24,25 +24,25 @@ type ConcGroup struct {
 //
 // Any subsequent call to the Go method will block until it can add an active
 // goroutine without exceeding the configured limit.
-func WithOptions(ctx context.Context, limit int, comp func(identifier string, data interface{}, err error)) (*ConcGroup, context.Context) {
+func WithOptions[T any](ctx context.Context, limit int, comp func(identifier string, data T, err error)) *ConcGroup[T] {
 	// ctx, cancel := withCancelCause(ctx)
 	// return &Group{cancel: cancel}, ctx
 	// TODO: wrap cancel
-	cg := &ConcGroup{}
+	cg := &ConcGroup[T]{}
 	cg.sem = nil
 	if limit > 0 {
 		cg.sem = make(chan token, limit)
 	}
 	cg.comp = comp
 
-	return cg, ctx
+	return cg
 }
 
-func (cg *ConcGroup) Wait() {
+func (cg *ConcGroup[T]) Wait() {
 	cg.wg.Wait()
 }
 
-func (cg *ConcGroup) done() {
+func (cg *ConcGroup[T]) done() {
 	if cg.sem != nil {
 		<-cg.sem
 	}
@@ -55,7 +55,7 @@ func (cg *ConcGroup) done() {
 //
 // if data is returned as an interface{} and completion callback is not nil
 // the completion callback will be called synchronously
-func (cg *ConcGroup) Go(identifier string, f func() (interface{}, error)) {
+func (cg *ConcGroup[T]) Go(identifier string, f func() (T, error)) {
 	if cg.sem != nil {
 		cg.sem <- token{}
 	}

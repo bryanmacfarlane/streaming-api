@@ -22,7 +22,7 @@ func main() {
 	r.Get("/foobars", func(w http.ResponseWriter, r *http.Request) {
 		cw := NewChunkedWriter(w)
 
-		cg, _ := concgroup.WithOptions(context.Background(), MAX_CONCURRENCY, func(identifier string, obj interface{}, err error) {
+		cg := concgroup.WithOptions(context.Background(), MAX_CONCURRENCY, func(identifier string, obj interface{}, err error) {
 			cw.Send(NewChunk(identifier, obj, err))
 		})
 
