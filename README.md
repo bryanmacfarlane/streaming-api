@@ -18,7 +18,7 @@ Http chunked encoding is an http 1.1 feature.  Ebay leveraged and [even created 
 
 We also need a concurrent server solution which writes the streaming chunks.
 
-> Note: This is not a RESTful api.  This is a first party route per page view
+> Note: This is not a RESTful api.  This is a first party route per page-view
 
 So for the "foobars" page, let's get all the data async.  Notice the overhead of the request and then the three pieces of data being made available to the client as the server has them.  Also notice that the third "chunk" of data relies on the first chunk (a foo has a baz id).
 
@@ -114,10 +114,11 @@ curl --trace - "http://localhost:3000/foobars"
 ```
 
 From the server, we want to make it productive to:
-- Do concurrent work
-- Synchronize writing the chunks to the client
 
-The sample code here offers a Chunked middleware and a concgroup go package to make concurrently doing work and synchronizing consistent.
+- Perform concurrent work safely
+- Synchronize writing the chunks to the stream down to the client
+
+The proof of concept code here offers a Chunked middleware and a concgroup go package to make concurrently doing work and synchronizing consistent.
 
 In this sample code, we have a `/foobars` route for the `foobars` view.  It concurrently gets a foo, concurrently gets a bar, waits for both because we need state from a bar to get the final chunk, a baz.
 
